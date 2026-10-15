@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL2QR</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="image/logo.png" onerror="this.href='img/logo.png'">
+</head>
+<body>
+  <!-- Ambient Background -->
+  <div class="ambient-background" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+  </div>
+
+  <div class="app-wrapper" id="app-wrapper">
+    <!-- Center Logo (Smoothly glides to top-center when QR is generated) -->
+    <div class="center-logo-wrapper" id="center-logo-wrapper" title="새로고침 / 초기 화면">
+      <img 
+        id="brand-logo" 
+        src="image/logo.png" 
+        onerror="if(this.src.indexOf('img/') === -1) { this.src = 'img/logo.png'; }" 
+        alt="URL2QR Logo" 
+        class="center-logo-image"
+      >
+    </div>
+
+    <!-- Center QR Code Display (Appears in dead center after URL confirmation) -->
+    <div class="qr-display-container" id="qr-display-container">
+      <div class="qr-card" id="qr-card" title="클릭하여 JPG 다운로드" role="button" tabindex="0">
+        <div class="qr-canvas-holder" id="qr-canvas-holder">
+          <!-- QR Canvas is generated here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- URL Input Container (Transitions from center to bottom) -->
+    <div class="url-input-container" id="url-input-container">
+      <form id="qr-form" onsubmit="return false;">
+        <div class="input-glass-bar">
+          <input 
+            type="text" 
+            id="url-input" 
+            class="url-text-input" 
+            placeholder="URL을 입력하세요"
+            autocomplete="off" 
+            spellcheck="false" 
+            required
+          >
+          <button type="button" id="btn-clear" class="btn-clear" title="지우기" aria-label="입력 내용 지우기">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <button type="submit" id="btn-submit" class="btn-submit">확인</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Toast Notification (JPG Download Feedback) -->
+    <div class="toast-container" id="toast-container" role="status" aria-live="polite">
+      <div class="toast-box">
+        <span class="toast-text" id="toast-message">QR코드가 JPG 파일로 다운로드되었습니다!</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Code Engine & App Logic -->
+  <script src="qrcode.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
